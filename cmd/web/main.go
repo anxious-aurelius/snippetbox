@@ -1,11 +1,22 @@
 package main
 
 import (
-	"log"
+	"flag"
+	"log/slog"
 	"net/http"
+	"os"
 )
 
 func main() {
+	
+	addr := flag.String("addr", "127.0.0.1:4003", "Network interface and port for the service")
+	flag.Parse()
+
+	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		Level : slog.LevelDebug,
+		AddSource : true, 
+	}))
+
 
 	fileserver := http.FileServer(http.Dir("./ui/static"))
 
@@ -17,7 +28,9 @@ func main() {
 
 	mux.Handle("GET /static/", http.StripPrefix("/static", fileserver))
 
-	log.Print("starting server on port :4001")
-	err := http.ListenAndServe("127.0.0.1:4001", mux)
-	log.Fatal(err)
+	logger.Info("starting server","addr", *addr)
+
+	err := http.ListenAndServe(*addr, mux)
+	logger.Error(err.Error())
+	os.Exit(1)
 }
