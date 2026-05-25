@@ -17,14 +17,17 @@ func main() {
 		AddSource : true, 
 	}))
 
+	app := &application{
+		logger: *logger,
+	}
 
 	fileserver := http.FileServer(http.Dir("./ui/static"))
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /{$}", home)
-	mux.HandleFunc("GET /snippet/view/{id}", snippetView)
-	mux.HandleFunc("GET /snippet/create", snippetCreate)
-	mux.HandleFunc("POST /snippet/create", snippetCreatePost)
+	mux.HandleFunc("GET /{$}", app.home)
+	mux.HandleFunc("GET /snippet/view/{id}", app.snippetView)
+	mux.HandleFunc("GET /snippet/create", app.snippetCreate)
+	mux.HandleFunc("POST /snippet/create", app.snippetCreatePost)
 
 	mux.Handle("GET /static/", http.StripPrefix("/static", fileserver))
 
