@@ -9,7 +9,7 @@ import (
 )
 
 type application struct {
-	logger slog.Logger
+	logger *slog.Logger
 }
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {

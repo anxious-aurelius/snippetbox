@@ -18,7 +18,7 @@ func main() {
 	}))
 
 	app := &application{
-		logger: *logger,
+		logger: logger,
 	}
 
 	fileserver := http.FileServer(http.Dir("./ui/static"))
