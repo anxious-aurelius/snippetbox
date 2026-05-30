@@ -3,19 +3,17 @@ package main
 import (
 	"database/sql"
 	"flag"
+	"github.com/anxious-aurelius/snippetbox/internal/models"
 	_ "github.com/go-sql-driver/mysql"
 	"log/slog"
 	"net/http"
 	"os"
-	"github.com/anxious-aurelius/snippetbox/internal/models"
 )
-
 
 type application struct {
 	logger   *slog.Logger
 	snippets *models.SnippetModel
 }
-
 
 func main() {
 
@@ -24,12 +22,10 @@ func main() {
 
 	flag.Parse()
 
-
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
 		Level:     slog.LevelDebug,
 		AddSource: true,
 	}))
-
 
 	db, err := openDB(*dsn)
 
@@ -39,8 +35,6 @@ func main() {
 	}
 
 	defer db.Close()
-
-
 
 	app := &application{
 		logger:   logger,

@@ -1,5 +1,7 @@
 .PHONY: fmt validate build run
 
+default: run
+
 fmt:
 	go fmt ./...
 
@@ -11,3 +13,4 @@ build:
 
 run:
 	go run ./cmd/web
+
