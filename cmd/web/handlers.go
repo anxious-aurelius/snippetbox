@@ -3,14 +3,9 @@ package main
 import (
 	"fmt"
 	"html/template"
-	"log/slog"
 	"net/http"
 	"strconv"
 )
-
-type application struct {
-	logger *slog.Logger
-}
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
@@ -32,7 +27,6 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		app.serverError(w, r, err)
 	}
-
 
 }
 

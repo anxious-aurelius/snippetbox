@@ -6,7 +6,7 @@ import (
 )
 
 func (app *application) serverError(w http.ResponseWriter, r *http.Request, err error) {
-	
+
 	method := r.Method
 	uri := r.URL
 	trace := string(debug.Stack())
@@ -15,7 +15,6 @@ func (app *application) serverError(w http.ResponseWriter, r *http.Request, err 
 	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 
 }
-
 
 func (app *application) clientError(w http.ResponseWriter, status int) {
 
