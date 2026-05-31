@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"html/template"
+	// "html/template"
 	"net/http"
 	"strconv"
 )
@@ -11,22 +11,32 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Server", "Go")
 
-	files := []string{
-		"./ui/html/base.html",
-		"./ui/html/pages/home.html",
-		"./ui/html/partials/nav.html",
-	}
+	// files := []string{
+	// 	"./ui/html/base.html",
+	// 	"./ui/html/pages/home.html",
+	// 	"./ui/html/partials/nav.html",
+	// }
 
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.serverError(w, r, err)
-		return
-	}
+	// ts, err := template.ParseFiles(files...)
+	// if err != nil {
+	// 	app.serverError(w, r, err)
+	// 	return
+	// }
 
-	err = ts.ExecuteTemplate(w, "base", nil)
+	// err = ts.ExecuteTemplate(w, "base", nil)
+	// if err != nil {
+	// 	app.serverError(w, r, err)
+	// }
+
+	title := "Golang db"
+	content := "Kripal is learning how to integrate with golang db"
+	expires := 19
+
+	id, err := app.snippetModel.Insert(title, content, expires)
+
 	if err != nil {
-		app.serverError(w, r, err)
-	}
+		
+	} 
 
 }
 

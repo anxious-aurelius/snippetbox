@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"database/sql"
+	"time"
+)
 
 type Snippet struct {
 	ID      int
@@ -10,10 +13,21 @@ type Snippet struct {
 	Expires time.Time
 }
 
-// TODO: Add a SnippetModel struct with a database connection pool field.
+type SnippetModel struct {
+	DB *sql.DB
+}
 
-// TODO: Implement Insert method - inserts a new snippet and returns its id.
+func (m *SnippetModel) Insert(title string, content string, expires int) (int, error) {
+	return 0, nil
+}
 
-// TODO: Implement Get method - fetches a specific snippet by id.
+func (m *SnippetModel) Get(id int) (Snippet, error){
+	return Snippet{}, nil
+}
 
 // TODO: Implement Latest method - fetches the 10 most recently created snippets.
+
+func (m *SnippetModel) Latest() ([]Snippet, error){
+	return nil, nil
+}
+
