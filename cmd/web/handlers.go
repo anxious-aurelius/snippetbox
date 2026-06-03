@@ -48,8 +48,12 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 			http.NotFound(w, r)
 		} else {
 			app.serverError(w, r, err)
-			return
 		}
+		return
+	}
+
+	data := templateData{
+		Snippet : snippet,
 	}
 
 	files := []string{"./ui/html/base.html", "./ui/html/pages/view.html", "./ui/html/partials/nav.html"}
@@ -61,7 +65,7 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = ts.ExecuteTemplate(w, "base", snippet)
+	err = ts.ExecuteTemplate(w, "base", data)
 
 	if err!= nil {
 		app.serverError(w, r, err)
