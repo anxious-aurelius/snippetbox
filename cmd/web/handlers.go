@@ -26,9 +26,9 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	files := []string{
-		"./ui/html/base.html",
-		"./ui/html/pages/home.html",
-		"./ui/html/partials/nav.html",
+		"./ui/html/base.tmpl",
+		"./ui/html/pages/home.tmpl",
+		"./ui/html/partials/nav.tmpl",
 	}
 
 	ts, err := template.ParseFiles(files...)
@@ -67,7 +67,7 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		Snippet : snippet,
 	}
 
-	files := []string{"./ui/html/base.html", "./ui/html/pages/view.html", "./ui/html/partials/nav.html"}
+	files := []string{"./ui/html/base.tmpl", "./ui/html/pages/view.tmpl", "./ui/html/partials/nav.tmpl"}
 
 	ts, err := template.ParseFiles(files...)	
 
