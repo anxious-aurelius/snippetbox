@@ -2,7 +2,6 @@ package main
 
 import (
 	"html/template"
-	"path/filepath"
 
 	"github.com/anxious-aurelius/snippetbox/internal/models"
 )
@@ -12,34 +11,21 @@ type templateData struct {
 	Snippets []models.Snippet
 }
 
+// newTemplateCache builds an in-memory cache of parsed templates, keyed by
+// page name, so templates are parsed once at startup rather than on every request.
 func newTemplateCache() (map[string]*template.Template, error){
 
 	cache := map[string]*template.Template{}
 
-	pages, err := filepath.Glob("./ui/html/pages/*.tmpl")
+	// TODO: use filepath.Glob() to find all the page templates, e.g.
+	// "./ui/html/pages/*.tmpl"
 
-	if err != nil {
-		return nil, err
-	}
-
-	for _, page := range pages {
-
-		name := filepath.Base(page)
-
-		files := []string{
-			"./ui/html/base.tmpl",
-			"./ui/html/partials/nav.tmpl",
-			page,
-		}
-
-		ts, err := template.ParseFiles(files...)
-		if err != nil {
-			return nil,err
-		}
-
-		cache[name] = ts
-
-	}
+	// TODO: loop over the page templates. For each one:
+	//   1. get the file name (filepath.Base) to use as the cache key
+	//   2. build the slice of files to parse: base.tmpl, partials/nav.tmpl,
+	//      and the page itself
+	//   3. use template.ParseFiles(...) to parse them into a *template.Template
+	//   4. store the result in the cache map, keyed by the file name
 
 	return cache, nil
 

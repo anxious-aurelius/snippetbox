@@ -1,26 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"runtime/debug"
 )
 
+// renderTemplate looks up the template set for the given page, writes the
+// HTTP status code, then executes it to the response.
 func (app *application) renderTemplate(w http.ResponseWriter, r *http.Request, status int, page string, data templateData){
-	ts, ok := app.templateCache[page]
 
-	if !ok {
-		err := fmt.Errorf("Template %s does not exist", page)
-		app.serverError(w, r, err)
-		return
-	}
+	// TODO: look up "page" in app.templateCache. If it isn't found, build
+	// an error with fmt.Errorf() and pass it to app.serverError(), then return.
 
-	w.WriteHeader(status)	
+	// TODO: write the status code to the response with w.WriteHeader(status).
 
-	err := ts.ExecuteTemplate(w, "base",data)
-	if err != nil {
-		app.serverError(w, r , err )
-	}
+	// TODO: execute the "base" template from the template set into w. If
+	// ExecuteTemplate() returns an error, pass it to app.serverError().
 }
 
 func (app *application) serverError(w http.ResponseWriter, r *http.Request, err error) {
